@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:38:26 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/14 22:03:28 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/14 22:53:38 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,21 @@ void  BitcoinExchange::checkDataBaseIntegrity(std::string& dataBaseFile) {
   }
 }
 
-bool  checkFormat(std::string& line) {
-  std::cout << line;
+bool  BitcoinExchange::checkFormat(std::string& line) {
+  std::cout << line << std::endl;
   return (true);
 }
 
-bool  checkDate(std::string& line) {
-  std::cout << line;
+bool  BitcoinExchange::checkDate(std::string& line) {
+  std::cout << line << std::endl;
   return (true);
 }
 
-bool  checkExchangeRate(std::string& line) {
-  std::cout << line;
+bool  BitcoinExchange::checkExchangeRate(std::string& line) {
+  std::cout << line << std::endl;
   return (true);
 }
 
-void  parseDataBaseFile(std::string& dataBaseFile) {
-  std::cout << dataBaseFile;
+void  BitcoinExchange::parseDataBaseFile(std::string& dataBaseFile) {
+  std::cout << dataBaseFile << std::endl;
 }
