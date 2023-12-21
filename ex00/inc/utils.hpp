@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:55:10 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/21 17:34:35 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:51:51 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <iostream>
 # include <cstdlib>
+# include <map>
 # include "../inc/Exceptions.hpp"
 
 void  checkInput(int argc);
@@ -28,5 +29,5 @@ bool  checkDate(std::string& date);
 bool  checkExchangeRate(std::string& line);
 
 int   extractDate(std::string& line);
-
+void  printMap(std::map<int, double>& map);
 #endif

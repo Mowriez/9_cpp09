@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:38:26 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/21 17:37:52 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:55:06 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ BitcoinExchange::BitcoinExchange(std::string& inputFilePath)
   : _dataBaseFilePath("./db/data.csv"), _inputFilePath(inputFilePath) {
   checkDataBaseIntegrity();
   parseDataBaseFile();
+  // printMap(_dataBase);
 }
 
 BitcoinExchange::~BitcoinExchange() {}
@@ -77,6 +78,6 @@ void  BitcoinExchange::parseDataBaseFile() {
       continue;
     date = extractDate(lineContent);
     conversionRate = strtod(lineContent.substr(11, lineContent.length() - 11).c_str(), NULL);
-    std::cout << date << " : " << std::setprecision(7) << conversionRate << std::endl;
+    _dataBase[date] = conversionRate;
   }
 }

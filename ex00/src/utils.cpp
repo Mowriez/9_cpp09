@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:56:26 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/21 17:34:30 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:53:58 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,9 @@ int extractDate(std::string& line) {
   ss << year << month << day;
   int date = atoi(ss.str().c_str());
   return (date);
+}
+
+void  printMap(std::map<int, double>& map) {
+  for (std::map<int, double>::iterator it = map.begin(); it != map.end(); it++)
+    std::cout << it->first << " | " << it->second << std::endl;
 }
