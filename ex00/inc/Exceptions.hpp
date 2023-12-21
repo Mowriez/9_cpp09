@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:15:37 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/14 22:31:27 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/21 14:23:27 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,41 +15,32 @@
 
 # include <exception>
 # include <string>
+# include <iostream>
+# include <sstream>
 
 class InputFileMissingException : public std::exception {
-  const char* what() const throw();
+  public:
+    const char* what() const throw();
 };
 
 class TooManyArgsException : public std::exception {
-  const char* what() const throw();
+  public:
+    const char* what() const throw();
 };
 
 class DataBaseFileAccessException : public std::exception {
-  const char* what() const throw();
+  public:
+    const char* what() const throw();
 };
 
 class DataBaseFileCorruptedException : public std::exception {
   private:
-    int _lineNum;
+    std::string _errorMessage;
   public:
-    DataBaseFileCorruptedException(int& lineNum) : _lineNum(lineNum) {};
-    const char* what(int _lineNum) const throw();
-};
 
-class InvalidDBDateException : public std::exception {
-  private:
-    int _lineNum;
-  public:
-    InvalidDBDateException(int& lineNum) : _lineNum(lineNum) {};
-    const char* what(int _lineNum) const throw();
-};
-
-class InvalidConversionRateException : public std::exception {
-  private:
-    int _lineNum;
-  public:
-    InvalidConversionRateException(int& lineNum) : _lineNum(lineNum) {};
-    const char* what(int _lineNum) const throw();
+    DataBaseFileCorruptedException(int& lineNum);
+    ~DataBaseFileCorruptedException() throw () {};
+    const char* what() const throw();
 };
 
 #endif
