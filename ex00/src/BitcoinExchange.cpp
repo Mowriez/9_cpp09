@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:38:26 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/22 11:46:05 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/22 15:07:42 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,20 +108,15 @@ void  BitcoinExchange::parseRequestLine(std::string& line) {
   if (handleEarlyAndLateDates(line, date, value))
     return ;
 
-  std::map<int, double>::iterator lookUpIterator = _dataBase.find(date);
-  if (lookUpIterator != _dataBase.end())
+  std::map<int, double>::iterator lookUpIterator = _dataBase.lower_bound(date);
+  if (lookUpIterator->first == date)
     std::cout << line.substr(0, 10) << " => " << value << " = "
               << value * lookUpIterator->second << std::endl;
   else {
-    int closestLowerDate = _dataBase.begin()->first;
-    for (lookUpIterator = _dataBase.begin(); lookUpIterator != _dataBase.end(); lookUpIterator++) {
-      if (date - lookUpIterator->first > 0
-          && (date - lookUpIterator->first) < date - closestLowerDate)
-          closestLowerDate = lookUpIterator->first;
-    }
+    lookUpIterator--;
     std::cout << line.substr(0, 10) << " => " << value << " = "
-              << value * _dataBase[closestLowerDate] 
-              << " (value from: " << closestLowerDate << ")" << std::endl;
+              << value * lookUpIterator->second
+              << " (value from: " << lookUpIterator->first << ")" << std::endl;
   }
 }
 
