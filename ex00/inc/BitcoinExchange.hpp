@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:30:35 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/21 17:48:33 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/22 11:28:39 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ class BitcoinExchange {
     void  checkDataBaseIntegrity();
     void  parseDataBaseFile();
 
-    void  checkInputFileIntegrity(std::string& inputFile);
-
+    void  processInput();
+    void  parseRequestLine(std::string& line);
+    bool  handleEarlyAndLateDates(std::string& line, int& date, double& value);
 };
 
 #endif

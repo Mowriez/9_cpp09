@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:15:37 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/21 14:23:27 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/22 10:42:49 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,46 @@ class DataBaseFileCorruptedException : public std::exception {
 
     DataBaseFileCorruptedException(int& lineNum);
     ~DataBaseFileCorruptedException() throw () {};
+    const char* what() const throw();
+};
+
+class DataBaseEmptyException : public std::exception {
+  public:
+    const char* what() const throw();
+};
+
+class InputFileAccessException : public std::exception {
+  public:
+    const char* what() const throw();
+};
+
+class InvalidFormatException : public std::exception {
+  private:
+    std::string _errorMessage;
+  public:
+
+    InvalidFormatException(std::string& line);
+    ~InvalidFormatException() throw () {};
+    const char* what() const throw();
+};
+
+class InvalidDateException : public std::exception {
+  private:
+    std::string _errorMessage;
+  public:
+
+    InvalidDateException(std::string& line);
+    ~InvalidDateException() throw () {};
+    const char* what() const throw();
+};
+
+class NotPositiveNumberException : public std::exception {
+  public:
+    const char* what() const throw();
+};
+
+class TooLargeNumberException : public std::exception {
+  public:
     const char* what() const throw();
 };
 

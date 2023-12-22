@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:38:26 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/21 17:55:06 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/22 11:46:05 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ BitcoinExchange::BitcoinExchange(std::string& inputFilePath)
   : _dataBaseFilePath("./db/data.csv"), _inputFilePath(inputFilePath) {
   checkDataBaseIntegrity();
   parseDataBaseFile();
-  // printMap(_dataBase);
 }
 
 BitcoinExchange::~BitcoinExchange() {}
@@ -58,26 +57,95 @@ void  BitcoinExchange::checkDataBaseIntegrity() {
       dataBaseFile.close();
       throw DataBaseFileCorruptedException(lineNum);
     }
-    std::cout << "line: " << lineNum << std::endl;
     lineNum++;
   }
   dataBaseFile.close();
 }
 
 void  BitcoinExchange::parseDataBaseFile() {
-  std::ifstream inputFile(_dataBaseFilePath.c_str());
+  std::ifstream dataBaseFile(_dataBaseFilePath.c_str());
 
-  if (!inputFile.is_open())
+  if (!dataBaseFile.is_open())
         throw DataBaseFileAccessException();
 
   std::string lineContent;
   int         date;
   double      conversionRate;
-  while (getline(inputFile, lineContent)) {
+  while (getline(dataBaseFile, lineContent)) {
     if (lineContent == "date,exchange_rate")
       continue;
     date = extractDate(lineContent);
     conversionRate = strtod(lineContent.substr(11, lineContent.length() - 11).c_str(), NULL);
     _dataBase[date] = conversionRate;
   }
+  dataBaseFile.close();
+  if (_dataBase.empty())
+    throw DataBaseEmptyException();
+}
+
+void  BitcoinExchange::processInput() {
+  std::ifstream inputFile(_inputFilePath.c_str());
+  if (!inputFile.is_open())
+        throw InputFileAccessException();
+  std::string line;
+  while (getline(inputFile, line)) {
+    try {
+      checkBadInput(line);
+      parseRequestLine(line);
+    }
+    catch (std::exception &e) {
+      std::cout << e.what() << std::endl;
+    }
+  }
+  inputFile.close();
+}
+
+void  BitcoinExchange::parseRequestLine(std::string& line) {
+  if (line == "date | value")
+    return;
+  int date = extractDate(line);
+  double value = strtod(line.substr(12, line.length() - 12).c_str(), NULL);
+  if (handleEarlyAndLateDates(line, date, value))
+    return ;
+
+  std::map<int, double>::iterator lookUpIterator = _dataBase.find(date);
+  if (lookUpIterator != _dataBase.end())
+    std::cout << line.substr(0, 10) << " => " << value << " = "
+              << value * lookUpIterator->second << std::endl;
+  else {
+    int closestLowerDate = _dataBase.begin()->first;
+    for (lookUpIterator = _dataBase.begin(); lookUpIterator != _dataBase.end(); lookUpIterator++) {
+      if (date - lookUpIterator->first > 0
+          && (date - lookUpIterator->first) < date - closestLowerDate)
+          closestLowerDate = lookUpIterator->first;
+    }
+    std::cout << line.substr(0, 10) << " => " << value << " = "
+              << value * _dataBase[closestLowerDate] 
+              << " (value from: " << closestLowerDate << ")" << std::endl;
+  }
+}
+
+bool  BitcoinExchange::handleEarlyAndLateDates(std::string& line, int& date, double& value) {
+  std::map<int, double>::iterator it = _dataBase.begin();
+  double  earliestDate = it->first;
+  double  latestDate = it->first;
+
+  for (it = _dataBase.begin(); it != _dataBase.end(); it++) {
+    if (it->first < earliestDate)
+      earliestDate = it->first;
+    if (it->first > latestDate)
+      latestDate = it->first;
+  }
+  if (date < earliestDate) {
+    std::cout << line.substr(0, 10) << " => " << value 
+              << " = 0 (date before earliest database entry)" << std::endl;
+    return (true);
+  }
+  else if (date > latestDate) {
+    std::cout << line.substr(0, 10) << " => " << value << " = "
+              << std::fixed << std::setprecision(2) << value * _dataBase[latestDate] 
+              << " (date after latest database entry)" << std::endl;
+    return (true);
+  }
+  return (false);
 }

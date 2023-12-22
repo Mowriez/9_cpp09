@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:55:10 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/21 17:51:51 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/22 10:31:01 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,8 @@ bool  checkExchangeRate(std::string& line);
 
 int   extractDate(std::string& line);
 void  printMap(std::map<int, double>& map);
+
+void  checkBadInput(std::string& line);
+void  checkValue(std::string& line);
+
 #endif

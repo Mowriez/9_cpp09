@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:56:26 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/21 17:53:58 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/22 11:25:59 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,44 @@ int extractDate(std::string& line) {
 void  printMap(std::map<int, double>& map) {
   for (std::map<int, double>::iterator it = map.begin(); it != map.end(); it++)
     std::cout << it->first << " | " << it->second << std::endl;
+}
+
+void  checkBadInput(std::string& line) {
+  if (line == "date | value")
+    return ;
+  if (line.length() < 14)
+    throw InvalidFormatException(line);
+  for (size_t i = 0; i < line.length(); i++) {
+    if (!(isdigit(line[i]) || line[i] == '|' || line[i] == '-' 
+        || line[i] == ' ' || line[i] == '.'))
+      throw InvalidFormatException(line);
+  }
+  if (line.find('-', 0) != 4 || line.find('-', 5) != 7 || line.find('|', 0) != 11)
+    throw InvalidFormatException(line);
+  if (!checkDate(line))
+    throw InvalidDateException(line);
+  checkValue(line);
+}
+
+void  checkValue(std::string& line) {
+  if (line.find('|', 0) != 11)
+    throw InvalidFormatException(line);
+  std::string valueString = line.substr(13, line.length() - 13);
+  int periodCount = 0;
+  for (size_t i = 0; i != valueString.length(); i++) {
+    if (!(isdigit(valueString[i]) || valueString[i] == '.' || valueString[i] == '-'))
+      throw InvalidFormatException(valueString);
+    if (valueString[i] == '.') {
+      periodCount++;
+      if (periodCount > 1)
+        throw InvalidFormatException(valueString);
+    }
+  }
+  double value = strtod(valueString.c_str(), NULL);
+  if (value == 0 && valueString != "0")
+    throw InvalidFormatException(valueString);
+  if (value < 0)
+    throw NotPositiveNumberException();
+  if (value > 1000)
+    throw TooLargeNumberException();
 }
