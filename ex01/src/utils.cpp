@@ -6,12 +6,11 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:28:30 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/25 16:50:30 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/25 17:34:13 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/utils.hpp"
-#include "../inc/MyExceptions.hpp"
 
 void  checkInput(std::string& input) {
   for(size_t i = 0; i < input.length(); i++) {
@@ -32,7 +31,6 @@ void  checkInput(std::string& input) {
     else
       blockEnd = (input.find(' ', blockStart));
     std::string block = input.substr(blockStart , blockEnd - blockStart);
-    std::cout << block << "|" << std::endl;
     checkBlock(block);
     if (stop)
       break;
@@ -48,4 +46,58 @@ void  checkBlock(std::string& block) {
           throw WrongBlockFormatException(block);
       }
   }
+}
+
+void runRPNCalculation(std::string& input) {
+  std::stack<int> RPNStack;
+  size_t blockStart = 0;
+  size_t blockEnd = 0;
+  bool stop = false;
+  int  result = 0;
+  std::cout << input << std::endl;
+
+  while(true) {
+    if (input.find(' ', blockStart) == std::string::npos) {
+      stop = true;
+      blockEnd = input.length();
+    }
+    else
+      blockEnd = (input.find(' ', blockStart));
+    std::string block = input.substr(blockStart , blockEnd - blockStart);
+    manipulateStack(RPNStack, block, result);
+    if (stop) {
+      std::cout << "Result: |" << result << "|" << std::endl;
+      break;
+    }
+    blockStart = blockEnd + 1;
+  }
+}
+
+void  manipulateStack(std::stack<int>& RPNStack, std::string& block, int& result) {
+  int    firstNum;
+  int    secondNum;
+
+  if (block == "+" || block == "-" || block == "*" || block == "/") {
+    if (RPNStack.size() < 2)
+      throw WrongBlockFormatException(block);
+    secondNum = RPNStack.top();
+    RPNStack.pop();
+    firstNum = RPNStack.top();
+    RPNStack.pop();
+    std::cout << "first: " << firstNum << " second: " << secondNum << std::endl;
+    if (block == "+")
+      result = firstNum + secondNum;
+    else if (block == "-")
+      result = firstNum - secondNum;
+    else if (block == "/")
+      result = firstNum / secondNum;
+    else if (block == "*")
+      result = firstNum * secondNum;
+    else
+      throw WrongBlockFormatException(block);
+    RPNStack.push(result);
+   }
+   else {
+    RPNStack.push(atoi(block.c_str()));
+   }
 }

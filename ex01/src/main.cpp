@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:18:23 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/22 14:31:01 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/25 16:52:31 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int main(int argc, char **argv) {
       throw MyBasicException();
     std::string input = static_cast<std::string>(argv[1]);
     checkInput(input);
+    runRPNCalculation(input);
   }
   catch (std::exception &e) {
     std::cout << e.what() << std::endl;
