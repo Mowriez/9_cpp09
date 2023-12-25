@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:26:35 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/22 17:36:56 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/25 16:03:17 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@
 # include <algorithm>
 
 void  checkInput(std::string& input);
+void  checkBlock(std::string& block);
 
 #endif

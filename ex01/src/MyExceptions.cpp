@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:21:19 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/22 14:41:15 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/25 16:09:32 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,15 @@ WrongFormatException::WrongFormatException(const int& charNum, std::string& inpu
 }
 
 const char* WrongFormatException::what() const throw() {
+  return (_errorMessage.c_str());
+}
+
+WrongBlockFormatException::WrongBlockFormatException(std::string& input) {
+  std::stringstream ss;
+  ss << "Error: Wrong format: " << input << std::endl;
+  _errorMessage = ss.str();
+}
+
+const char* WrongBlockFormatException::what() const throw() {
   return (_errorMessage.c_str());
 }

@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:28:30 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/22 17:54:09 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/25 16:50:30 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 void  checkInput(std::string& input) {
   for(size_t i = 0; i < input.length(); i++) {
     if (!(isdigit(input[i]) || input[i] == '+' || input[i] == '-'
-         || input[i] == '*' || input[i] == '/'  || input[i] == ' '
-         || !isdigit(input[0])))
+         || input[i] == '*' || input[i] == '/'  || input[i] == ' ')
+         || !isdigit(input[0]))
       throw WrongFormatException(i, input);
   }
 
@@ -29,15 +29,23 @@ void  checkInput(std::string& input) {
       stop = true;
       blockEnd = input.length();
     }
-    blockEnd = (input.find(' ', blockStart));
-    std::cout << "start: " << blockStart << "|" << std::endl;
-    std::cout << "end: " << blockEnd << "|" << std::endl;
+    else
+      blockEnd = (input.find(' ', blockStart));
     std::string block = input.substr(blockStart , blockEnd - blockStart);
     std::cout << block << "|" << std::endl;
-    // checkBlock(block);
+    checkBlock(block);
     if (stop)
       break;
     blockStart = blockEnd + 1;
   }
-  std::cout << "asd" << std::endl;
+}
+
+void  checkBlock(std::string& block) {
+  for (size_t i = 0; i < block.length(); i++) {
+    if ((block[i] == '+' || block[i] == '-'
+         || block[i] == '*' || block[i] == '/')) {
+        if (i != 0)
+          throw WrongBlockFormatException(block);
+      }
+  }
 }
