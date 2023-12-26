@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:28:30 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/25 17:34:13 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/26 19:45:10 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ void runRPNCalculation(std::string& input) {
     else
       blockEnd = (input.find(' ', blockStart));
     std::string block = input.substr(blockStart , blockEnd - blockStart);
+    if (block.empty()) {
+      std::string msg = "multiple concurrent spaces";
+      throw WrongBlockFormatException(msg);
+    }
     manipulateStack(RPNStack, block, result);
     if (stop) {
       std::cout << "Result: |" << result << "|" << std::endl;
