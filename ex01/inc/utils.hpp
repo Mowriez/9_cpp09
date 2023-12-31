@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:26:35 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/26 19:46:21 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/31 15:50:29 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 void  checkInput(std::string& input);
 void  checkBlock(std::string& block);
-void runRPNCalculation(std::string& input);
+void  runRPNCalculation(std::string& input);
 void  manipulateStack(std::stack<int>& RPNStack, std::string& block, int& result);
 
 #endif

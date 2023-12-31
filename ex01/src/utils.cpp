@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:28:30 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/26 19:45:10 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/31 16:17:31 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void  checkInput(std::string& input) {
   for(size_t i = 0; i < input.length(); i++) {
     if (!(isdigit(input[i]) || input[i] == '+' || input[i] == '-'
          || input[i] == '*' || input[i] == '/'  || input[i] == ' ')
-         || !isdigit(input[0]))
+         || (!isdigit(input[0]) && !(input[0] == '-') && !(input[0] == '+')))
       throw WrongFormatException(i, input);
   }
 
@@ -54,8 +54,8 @@ void runRPNCalculation(std::string& input) {
   size_t blockEnd = 0;
   bool stop = false;
   int  result = 0;
-  std::cout << input << std::endl;
 
+  // std::cout << input << std::endl;
   while(true) {
     if (input.find(' ', blockStart) == std::string::npos) {
       stop = true;
@@ -65,13 +65,19 @@ void runRPNCalculation(std::string& input) {
       blockEnd = (input.find(' ', blockStart));
     std::string block = input.substr(blockStart , blockEnd - blockStart);
     if (block.empty()) {
-      std::string msg = "multiple concurrent spaces";
+      std::string msg = "multiple concurrent spaces or space at end of input";
       throw WrongBlockFormatException(msg);
     }
     manipulateStack(RPNStack, block, result);
     if (stop) {
+      if (RPNStack.size() != 1) {
+        std::string msg = "incorrect number of operators";
+        throw WrongBlockFormatException(msg);
+      }
+      else {
       std::cout << "Result: |" << result << "|" << std::endl;
       break;
+      }
     }
     blockStart = blockEnd + 1;
   }
@@ -88,7 +94,7 @@ void  manipulateStack(std::stack<int>& RPNStack, std::string& block, int& result
     RPNStack.pop();
     firstNum = RPNStack.top();
     RPNStack.pop();
-    std::cout << "first: " << firstNum << " second: " << secondNum << std::endl;
+    std::cout << "first: " << firstNum << " second: " << secondNum << " operand: " << block << std::endl;
     if (block == "+")
       result = firstNum + secondNum;
     else if (block == "-")

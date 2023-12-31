@@ -6,14 +6,14 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:21:19 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/25 16:09:32 by mtrautne         ###   ########.fr       */
+/*   Updated: 2023/12/31 16:18:23 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/MyExceptions.hpp"
 
 const char* MyBasicException::what() const throw() {
-  return ("ERROR");
+  return ("ERROR\n");
 }
 
 WrongFormatException::WrongFormatException(const int& charNum, std::string& input) {
