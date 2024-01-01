@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.hpp                                          :+:      :+:    :+:   */
+/*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:26:35 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/31 15:50:29 by mtrautne         ###   ########.fr       */
+/*   Updated: 2024/01/01 22:13:15 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_HPP
-# define UTILS_HPP
+#ifndef RPN_HPP
+# define RPN_HPP
 
 # include <string>
 # include <iostream>

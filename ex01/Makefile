@@ -6,7 +6,7 @@
 #    By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/14 17:29:15 by mtrautne          #+#    #+#              #
-#    Updated: 2023/12/22 14:26:24 by mtrautne         ###   ########.fr        #
+#    Updated: 2024/01/01 22:13:48 by mtrautne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,10 @@ OBJ_DIR =	./obj
 
 CPPFILES =	main \
 						MyExceptions \
-						utils
+						RPN
 
 HEADER =		MyExceptions \
-						utils
+						RPN
 
 INCL =	$(addsuffix .hpp, $(addprefix $(INC_DIR)/, $(HEADER)))
 SRCS = 	$(addsuffix .cpp, $(addprefix $(SRC_DIR)/, $(CPPFILES)))

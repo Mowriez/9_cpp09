@@ -6,14 +6,14 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:18:23 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/31 16:17:57 by mtrautne         ###   ########.fr       */
+/*   Updated: 2024/01/01 22:13:04 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string>
 #include <iostream>
 #include "../inc/MyExceptions.hpp"
-#include "../inc/utils.hpp"
+#include "../inc/RPN.hpp"
 
 int main(int argc, char **argv) {
   try {

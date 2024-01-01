@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.cpp                                          :+:      :+:    :+:   */
+/*   RPN.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:28:30 by mtrautne          #+#    #+#             */
-/*   Updated: 2023/12/31 16:17:31 by mtrautne         ###   ########.fr       */
+/*   Updated: 2024/01/01 22:12:57 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/utils.hpp"
+#include "../inc/RPN.hpp"
 
 void  checkInput(std::string& input) {
   for(size_t i = 0; i < input.length(); i++) {
