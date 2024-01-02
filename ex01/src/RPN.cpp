@@ -6,7 +6,7 @@
 /*   By: mtrautne <mtrautne@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 14:28:30 by mtrautne          #+#    #+#             */
-/*   Updated: 2024/01/01 22:12:57 by mtrautne         ###   ########.fr       */
+/*   Updated: 2024/01/01 22:41:45 by mtrautne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void  manipulateStack(std::stack<int>& RPNStack, std::string& block, int& result
     RPNStack.pop();
     firstNum = RPNStack.top();
     RPNStack.pop();
-    std::cout << "first: " << firstNum << " second: " << secondNum << " operand: " << block << std::endl;
+    // std::cout << "first: " << firstNum << " second: " << secondNum << " operand: " << block << std::endl;
     if (block == "+")
       result = firstNum + secondNum;
     else if (block == "-")
